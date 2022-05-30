@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="root" :x="n">
+    <h2>当前的n值：{{n}}</h2>
+    <button @click="Add">点我加1</button>
+  </div> 
+  
+</body>
+<script>
+  new Vue({
+    el:"#root",
+    data:{
+      n:1,
+    },
+    methods:{
+      Add(){
+        this.n++
+      }
+    },
+    beforeCreate(){
+      console.log('beforeCreate')
+      console.log(this)
+      //  debugger; 
+    },
+    created(){
+      console.log('created')
+     console.log(this);
+    //  debugger;
+    },
+    beforeMount(){
+      console.log('beforeMount')
+     console.log(this);
+    //  debugger;
+    // 不要在此时设置DOM，快到看不出
+    },
+    mounted(){
+      console.log('mounted')
+     console.log(this);
+     debugger;
+    },
+    beforeUdate(){
+      console.log('beforeUpdate');
+      console.log(this.n);
+      debugger;
+    }
+  })
+</script>
+</html>

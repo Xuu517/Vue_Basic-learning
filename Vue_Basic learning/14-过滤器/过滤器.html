@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/dayjs.min.js"></script>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="root">
+    <h2>显示格式化后的时间</h2>
+    <!-- 计算属性实现 -->
+    <h3>现在是：{{fmtTime}}</h3>
+    <!-- methods属性实现 -->
+    <h3>现在是：{{getFmtTime()}}</h3>
+    <!-- 过滤器实现 -->
+    <h3>现在是：{{time | timeFormater}}</h3>
+    <!-- 过滤器传参 -->
+    <h3>现在是：{{time | timeFormater('YYYY-MM-DD')}}</h3>
+    <h3>现在是：{{time | timeFormater('YYYY-MM-DD') | mySlice}}</h3>
+
+    <!-- ps1:过滤器不仅仅在差值语法里面可以用(很罕见)，动态绑定v-bind可以，v-model不行 -->
+    <h3 :x="msg|mySlice">现在是：{{time}}</h3>
+
+  </div>
+
+  <div id="roote">
+    <h4>{{text|mySlice}}</h4>
+  </div>
+  
+</body>
+
+<script>
+  Vue.config.productionTip = false;
+  //二、全局过滤器
+   Vue.filter('mySlice',function(value){
+    return value.slice(0,4)
+  })
+  new Vue({
+    el:'#root',
+    data:{
+      time:1652431116758,
+      msg:"就不告诉你"
+    },
+    computed:{
+      fmtTime(){
+        return dayjs(this.time).format('YYYY-MM-DD HH:mm:ss')
+      }
+    },
+    methods:{
+      getFmtTime(){
+        return dayjs(this.time).format('YYYY-MM-DD HH:mm:ss')
+      }
+    },
+    //一、局部过滤器
+    filters:{
+      //1.过滤器没传参数
+      // timeFormater(value){
+      //   return dayjs(value).format('YYYY-MM-DD HH:mm:ss')
+      // }
+      // 2.过滤器传参
+      timeFormater(value,str){
+        return dayjs(value).format(str)
+      },
+      //时间切割过滤器,后被注册成全局过滤器
+      // mySlice(value){
+      //   return value.slice(0,4)
+      // }
+      }
+    }
+  )
+
+  new Vue({
+    el:'#roote',
+    data:{
+      text:'hello，my name is rosie'
+    }
+  })
+</script>
+</html>
+<!-- 过滤器:
+
+定义:对要显示的数据进行特定格式化后再显示(适用于一些简单逻辑的处理) .
+语法:
+1.注册过滤器: Vue . filter(name,callback)或new Vue{filters:{}} 
+2.使用过滤器: {{ xx| 过滤器名}} 或v-bind:属性= "xox| 过滤器
+备注
+1.过滤器也可以接收额外参数、多个过滤器也可以串联
+2.并没有改变原本的数据，是产生新的对应的数据 -->

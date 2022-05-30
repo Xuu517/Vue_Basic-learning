@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="root">
+   姓： <input type="text" v-model="firstname"><br/>
+   名：<input type="text" v-model="lastname"><br/>
+   全名：<span>{{fullname()}}</span>
+   <!-- 函数要加小括号否则你显示的是函数名 -->
+   <!-- 绑定事件里面参数括号可加可不加，插值语法里面必须加 -->
+   
+  </div>
+  
+</body>
+<script>
+  new Vue({
+    el:'#root',
+    data:{
+      firstname:'li',
+      lastname:'li'
+    },
+    methods:{
+      fullname(){
+      return this.firstname+this.lastname;
+      }
+    }
+  })
+</script>
+</html>

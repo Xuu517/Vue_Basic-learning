@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+ <div id="root">
+  <school></school>
+ </div>
+  
+</body>
+<script>
+  Vue.prototype.x=12
+/*   function Demo(){
+    this.a=1,
+    this.b=2
+  }
+  // 创建一个demo实例对象
+  const d=new Demo()
+
+  console.log(Demo.prototype);//显示原型属性
+  console.log(d.__proto__);//隐式原型属性
+
+  // 程序员通过显示原型属性操纵原型对象，追加x属性
+  Demo.prototype.x=12
+  console.log('@',d.__proto__.x);//__proto__可以省略不写
+  console.log(d); */
+  const school = Vue.extend({
+    template: `
+    <div>
+     <h2>{{schoolName}}</h2>
+    <h2>{{address}}</h2>
+    <button @click='showX'>点我显示X</button>
+    </div>
+    `,
+    // el:'#root',//组件定义时，一定不要写el配置项，因为最终所有组件都要被一个vm管理，由vm决定服务于那个容器
+    data() {
+      return {
+        schoolName: '希望小学',
+        address: '北京朝阳',
+      }
+    },
+    methods:{
+      showX(){
+        console.log(this.x)
+      }
+    }
+  })
+
+  new Vue({
+    el:'#root',
+    data:{
+      msg:'你好'
+    },
+    components:{
+      school
+    }
+  })
+
+console.log(school.prototype.__proto__===Vue.prototype);
+</script>
+</html>
+<!-- 1.一个重要的内置对象 VueComponent.prototype.__proto__===Vue.prototype
+2.为什么要有这个关系，让组件实例对象（vc)可以访问到Vue原型上的属性和方法 -->

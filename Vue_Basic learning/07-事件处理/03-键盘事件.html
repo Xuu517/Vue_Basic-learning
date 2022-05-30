@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="root">
+    <h2>欢饮{{name}}</h2>
+    <input type="text" placeholder="按下会车提示输入" @keyup.q="show">
+  </div>
+  
+</body>
+<script>
+  // Vue.config.keyCodes.q=13;自定义不推荐
+  new Vue({
+    el:'#root',
+    data:{
+      name:'橙汁',
+    },
+    methods:{
+      show(e){
+        console.log(e.target.value);
+        // console.log(e.key,e.keyCode);//原keyup事件不添加事件，可以显示按键名称，编码
+
+      }
+
+    }
+  })
+</script>
+</html>
+
+<!-- 
+1.Vue中常用的按键别名:
+回车=> enter
+删除=> delete (捕获“删除"和“退格”健) 退出=> esc
+空格=> space
+换行=> tab
+上=> up
+下=> down
+左=> left
+右=> right
+
+2.Vue未提供别名的按健，可以使用按健原始的key值去绑定，但注意要转为kebab-case (短横线命名)
+
+3.系统修饰健(用法特殊) : ctrl、 alt. shift. meta
+(1).配合keyup使用:按下修饰键的同时，再按下其他健，随后释放其他健。事件才被触发。
+(2).配合keydown使用:正常触发事件。
+
+4.也可以使用keyCode去指定具体的按键(不推荐)
+
+5.Vue .config.keyCodes.自定义键名=健码，可以去定制按键别名 -->

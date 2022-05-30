@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+    <!--
+  需求1：定义一个v-big指令，和v-text指令功能类似1，但是会把绑定的数值，放大十倍
+  需求2：定义一个v-fbind指令，和v-bind的功能类似，但是可以让其他绑定的input元素默认获取焦点 -->
+      
+      <div id="root">
+        <h2>{{name}}</h2>
+       <h2>当前的n值是：</h2><span v-text="n"></span> 
+        <h2>放大十倍数值的数：</h2><span v-big="n"></span><br>
+        <button @click="n++">点我n加1</button>
+      </div>
+</body>
+  <script type="text/javascript">
+    const vm=new Vue({
+      el:'#root',
+      data:{
+       name:'很烦a' ,
+       n:1,
+        
+      },
+      directives:{
+        // big函数何时被调用？1.指令与元素成功绑定时。 
+            // 2.应该说指令所在的模板被重新解析时//指令用到的数值发生变化时（改变data中name的值试探：发现此结论不成立）
+        big(element,binding){
+          console.log('big')
+          element.innerText=binding.value*10;
+          //与之前讲的函数不一样
+        }
+      }
+    })
+  </script>
+</html>

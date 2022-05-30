@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button id="btn">点击创建一个输入框</button>
+  <script>
+    const btn=document.getElementById('btn');
+    btn.onclick=()=>{
+      const input=document.createElement('input')
+      input.focus()
+      input.value='123'
+      document.body.appendChild(input)
+      //没有焦点，因为首先要把input放到页面上才能焦点
+      //除了焦点，其他的也有可以放在之前就可以执行的例子
+
+    }
+  </script>
+</body>
+</html>

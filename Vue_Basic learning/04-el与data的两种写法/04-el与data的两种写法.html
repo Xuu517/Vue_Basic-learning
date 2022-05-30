@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 引入Vue -->
+  <script src="../js/vue.js">
+
+  </script>
+</head>
+<body>
+  <div id="root">
+    {{name}}
+  </div>
+
+  <script>
+    Vue.config.productionTip=false
+    //1.el的两种写法
+  // var v= new Vue({
+  //   // el:'#root',第一种写法
+  //     data:{
+  //       name:'你是蛇'
+      
+  //   }
+  //  })
+  //    console.log(v);
+  //   //  v.$mount('#root')//与el同义，不过el需要立刻执行，他可以暂缓//第二种写法
+  //  setTimeout(()=>{
+  //   v.$mount('#root')
+  //  },1000)//可以设置等一秒钟
+
+  // 2.data的两种写法
+  //第一种写法：对象式
+  new Vue({
+    el:'#root',
+    data:{
+      name:'月光'
+    }
+  })
+
+  //第二种写法：函数式 以后组件的时候要用
+  new Vue({
+    el:'#root',
+    data:function(){
+      console.log('@@@',this)//此处this为实例对象，如果改成箭头函数，则对象是windows
+      return{
+        name:'很烦'
+      }
+    }
+    //箭头函数
+    // data:()=>{
+
+    // }
+
+  })
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <script>
+    let data={
+      name:"月亮白月光",
+      address:"北京",
+
+      //多层数据
+      a:{
+        b:1
+      }
+
+    }
+
+    // Object.defineProperties(data,'name',{
+    //   get(){
+    //     return data.name
+    //   },
+    //   set(val){
+    //     data.name=val
+    //   }
+    // })
+
+    //创建一个监视实例对象，用于监测data中属性的变化
+    const obs = new Observer(data);
+    console.log(obs);
+//准备vm实例对象
+    let vm={}
+    vm._data=data=obs
+      function Observer(obj){
+        //汇总对象中所有的属性形成一个数组
+        const keys=Object.keys(obj);
+        //遍历
+        console.log(keys);
+        keys.forEach((k)=>{
+          Object.defineProperty(this,k,{
+          get(){
+            return obj[k]//属性值
+          },
+          set(val){
+            obj[k]=val,
+            console.log("name被改了，我要忙了")
+          }
+
+        })
+
+        })
+
+      }
+      // vue数据代理比我们完善：
+      //1. vm改数据不需要vm.data.name,而是直接vm.name
+      // 2.可以无限对象
+      // 数组里面的也能找到
+
+
+
+  </script>
+  
+</body>
+</html>

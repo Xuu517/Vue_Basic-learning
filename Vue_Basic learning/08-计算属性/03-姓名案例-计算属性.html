@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="root">
+   姓： <input type="text" v-model="firstname"><br/>
+   名：<input type="text" v-model="lastname"><br/>
+   全名：<span>{{fullname}}</span>
+
+  </div>
+  
+</body>
+<script>
+  // 计算属性：拿着已经有的属性去加工，去定义
+  const vm=new Vue({
+    el:'#root',
+    data:{
+      firstname:'li',
+      lastname:'li'
+    },
+    computed:{
+      fullname:{
+          // get有什么作用？当有人读取fullname时，get就会被调用，且返回值就作为fullname的值
+          //get什么时候调用？1.初次读取fullname时 2.所依赖的数据发生变化时
+      get(){
+        return this.firstname+'-'+this.lastname;
+      },
+         //set什么时候调用？fullname被修改时
+      set(value){
+       console.log(value);
+       const arr=value.split('-');
+       this.firstname=arr[0],
+       this.lastname=arr[1]
+      }
+
+    }
+    }
+
+  })
+</script>
+</html>
+<!-- 计算属性
+1.定义:要用的属性不存在，要通过已有属性计算得来。
+2.原理:底层借助了objcet.defineproperty方法提供的getter和lsetter.
+3.get函数什么时候执行?
+(1).初次读取时会执行一次。
+(2).当依赖的数据发生改变时公被再次调用。
+4.优势: jmethods实现相比， 内部有缓存机制(复用)，效率更高，调试方便。
+5.备注:
+1.计算属性最终会出现在vm上，直接读取 使用即可。
+2.如果计算属性要被修改，那必须写set函数去响应修改，set中要引起计算时依赖的数据发生 
+-->

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+
+<body>
+  <!--
+  需求1：定义一个v-big指令，和v-text指令功能类似1，但是会把绑定的数值，放大十倍
+  需求2：定义一个v-fbind指令，和v-bind的功能类似，但是可以让其他绑定的input元素默认获取焦点 -->
+
+  <div id="root">
+    <h2>{{name}}</h2>
+    <h2>当前的n值是：</h2><span v-text="n"></span>
+    <h2>放大十倍数值的数：</h2><span v-big="n"></span><br>
+    <h2>放大十倍数值的数：</h2><span v-big-number="n"></span><br>
+    <button @click="n++">点我n加1</button>
+    <input type="text" v-fbind='n' value="n">
+  </div>
+</body>
+<script type="text/javascript">
+  const vm = new Vue({
+    el: '#root',
+    data: {
+      name: '很烦a',
+      n: 1,
+
+    },
+    directives: {
+      //         'big.number'(element,binding){
+      // console.log('big',this)
+      // //注意指令的this是window
+      // element.innerText=binding.value*10;
+      // //与之前讲的函数不一样
+      // },
+//局部指令：：如果想变成全局，参照过滤器
+      big(element, binding) {
+
+        console.log('big', this)
+        //注意指令的this是window
+        element.innerText = binding.value * 10;
+        //与之前讲的函数不一样
+      },
+      //如果还是用之前的函数式
+      //对象式里面可以放很多函数：Vue会给你承诺，会在特殊时刻调用函数
+
+      fbind() {
+        element.value = binding.value
+        element.focus()
+        //需要等第二次vue解析才可以聚焦，所以必须分开
+      },
+
+      fbind: {
+        bind(element, binding) {
+          element.value = binding.value
+        },
+        inserted(element, binding) {
+          element.focus()
+        },
+        update(element, binding) {
+          element.value = binding.value
+        }
+      }
+    }
+  })
+</script>
+
+</html>
+<!-- 
+  一、定义语法:
+(1).局部指令:
+new Vue({directives:{指令名:配置对象}或})
+new Vue({directives：{指令名：回调函数}})
+
+(2).全局指令:
+Vue .directive(指令名,配置对象)或Vue .directive(指令名,回调函数)
+
+二、配置对象中常用的3个回调:
+(1).bind:指令与元素成功绑定时调用。
+(2). inserted:指令所在元素被插入页面时调用。
+(3). update:指令所在模板结构被重新解析时调用.
+
+三、备注:
+1.指令定义时不加v-,但使用时要加V-;
+2.指令名如果是多个单词，要使用kebab-case命名方式，不要用camelCase命名. -->

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 引入vue -->
+  <!-- 开发板vue会报告具体错误  生产办的不会-->
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+ <!-- 多个实例对应一个容器 -->
+ <!-- 也是只解释一个实例，哪个实例在上面，就解释哪个 -->
+ <!-- 所以容器实例只能一对一 -->
+ <!-- vue实例可以分为好多：组件思想 -->
+ <!-- 注意区分：js表达式和js代码
+    1.表达式：一个表达式生成一个值，可以放在任何一个需要值的地方
+    (1)a;
+    (2)a+b;
+    (3)demo(1)
+
+    2.js代码
+    (1)if(){}
+    (2)for(){} -->
+  <div id="root">
+    <h1>hello,{{name.toUpperCase()}},{{address}}</h1>
+    <!-- 运用函数表达式完成大写 -->
+  </div> 
+  <h1></h1>
+  <script type="text/javascript">
+     Vue.config.productionTip=false;
+     const x=new Vue({
+      el:'#root',
+      data:{
+        name:'love you',
+        address:'月色不美'
+      }
+     })
+     
+    
+    //只传一个参数，传递参数为配置对象  里面的key不能随便改
+ 
+  </script>
+  
+</body>
+</html>
+<!-- Vue实例和容器是一对应的 -->
+<!-- 真实开发中只有一个Vue实例，并且会配合着组件一起使用; -->
+<!-- {{xxx}}中的xxx要写js表达式，且xxx可以自动读取到data的所有属性 -->
+<!--一旦data中的数据发生改变，那么模板中用到该数据的地方也会自动更新; -->

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="root">
+    
+    <h2>仙地名称:{{name}}</h2>
+    <h2>仙地地址：{{address}}</h2>
+    <hr>
+    <button @click="AddSex">点我添加学生性别</button>
+    <h2>学生姓名：{{student.name}}</h2>
+    <h2 v-if="student.sex">{{student.sex}}</h2>
+    <h2>学生 真实年龄：{{student.age.rAge}} 对外年龄:{{student.age.rAge}}</h2>
+    <hr>
+    <h2>亲朋好友们好</h2>
+    <ul>
+      <li v-for="(f,index) in student.friends" :key="index">
+        {{f.name}}---{{f.age}}
+      </li>
+      
+    </ul>
+
+  </div>
+
+  
+</body>
+<script>
+  Vue.config.productionTip=false;
+  new Vue({
+    el:'#root',
+    data:{
+      name:'月色',
+      address:'嫦娥',
+      student:{
+        name:'tom',
+        age:{
+          rAge:40,
+          sAge:29
+        },
+        hobby:[],
+        friends:[
+          {name:'jerry',age:35},
+          {name:'tony',age:25}
+        ]
+      }
+    },
+    methods:{
+      AddSex(){
+        // Vue.set(this.student,'sex','男')
+        this.$set(this.student,'sex','男')
+      }
+
+    }
+
+  })
+</script>
+</html>

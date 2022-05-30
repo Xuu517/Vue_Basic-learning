@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 引入vue -->
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+  <!-- //多个容器对应一个实例  只解释一个 哪个在上面对应哪个-->
+  <div id="root">
+    <h1>hello,{{name}}1</h1>
+  </div>
+  <div id="root">
+    <h1>hello,{{name}}2</h1>
+  </div> 
+  <h1></h1>
+  <script type="text/javascript">
+     Vue.config.productionTip=false;
+
+     
+     const x=new Vue({
+     
+      el:'#root',
+      data:{//data中用于存储数据，数据供el所指定的容器去使用
+        name:'尚硅谷'
+      }
+     })//只传一个参数，传递参数为配置对象  里面的key不能随便改
+ 
+  </script>
+  
+</body>
+</html

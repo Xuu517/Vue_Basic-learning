@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="root">
+    <!-- 1.遍历数组（用的多） -->
+    <h2>人员列表</h2>
+    <ul>
+      <!-- <li v-for="p in persons" >
+        key最好写一下 ：key不能大家一样
+        {{p.name}}-{{p.age}}
+      </li> -->
+
+      <!-- 这里不仅可以接受p这个形参,可以接收两个形参 -->
+      <input type="text" placeholder="请输入名字" v-model="keyword">
+      <li v-for="(p,index) in filPersons" :key="index" >
+        <!-- {{p}}-{{index}} -->
+        {{p.name}}--{{p.age}}--{{p.sex}}
+      </li>
+    </ul>
+
+  </div>
+  
+</body>
+
+<script>
+  //#region
+  // new Vue({
+  //   el:'#root',
+  //   data:{
+  //     keyword:'',
+  //     persons:[
+  //       {id:'001',name:'佟丽娅',age:19,sex:'女'},
+  //       {id:'002',name:'赵丽颖',age:22,sex:'女'},
+  //       {id:'003',name:'赵月伦',age:12,sex:'男'},
+  //       {id:'003',name:'扁嘴伦',age:15,sex:'男'},
+  //     ],
+  //     filPersons:[
+  //       // {id:'001',name:'佟丽娅',age:19,sex:'女'},
+  //       // {id:'002',name:'赵丽颖',age:22,sex:'女'},
+  //       // {id:'003',name:'赵月伦',age:12,sex:'男'},
+  //       // {id:'003',name:'扁嘴伦',age:15,sex:'男'},
+  //     ] ,
+     
+  //   },
+  //   watch:{
+  //     // keyword(val){
+  //     //   this.filPersons=this.persons.filter((p)=>{
+  //     //     return p.name.indexOf(val)!==-1
+  //     //   })为了不使filPerson一开始即为空，不利于查询，可以率先调用handle函数，是列表先过滤一遍空串
+  //     // }
+
+  //     keyword:{
+  //       immediate:true,
+  //       handler(val){
+  //         this.filPersons=this.persons.filter((p)=>{
+  //         return p.name.indexOf(val)!==-1
+  //       })
+
+  //       }
+  //     }
+  //   }
+  // })
+  //#endregion
+  new Vue({
+    el:'#root',
+    data:{
+      keyword:'',
+      persons:[
+        {id:'001',name:'佟丽娅',age:19,sex:'女'},
+        {id:'002',name:'赵丽颖',age:22,sex:'女'},
+        {id:'003',name:'赵月伦',age:12,sex:'男'},
+        {id:'003',name:'扁嘴伦',age:15,sex:'男'},
+      ],
+    },
+    computed:{
+      filPersons(){
+        return this.persons.filter((p)=>{
+          return p.name.indexOf(this.keyword)!==-1//keyword更新一次，filPersons重新调用
+      })
+    }
+  }
+ 
+  })
+</script>
+</html>
+

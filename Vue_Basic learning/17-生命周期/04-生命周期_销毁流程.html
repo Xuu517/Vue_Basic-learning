@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="root" :x="n">
+    <h2>当前的n值：{{n}}</h2>
+    <button @click="Add">点我加1</button>
+    <button @click="Bye">点我销毁vm</button>
+  </div> 
+  
+</body>
+<script>
+  new Vue({
+    el:"#root",
+    data:{
+      n:1,
+    },
+    methods:{
+      Add(){
+        this.n++
+      },
+      Bye(){
+        this.$destroy();
+      }
+    },
+    beforeCreate(){
+      console.log('beforeCreate')
+      console.log(this)
+      //  debugger; 
+    },
+    created(){
+      console.log('created')
+     console.log(this);
+    //  debugger;
+    },
+    beforeMount(){
+      console.log('beforeMount')
+     console.log(this);
+    //  debugger;
+    // 不要在此时设置DOM，快到看不出
+    },
+    mounted(){
+      console.log('mounted')
+     console.log(this);
+    //  debugger;
+    },
+    beforeUpdate(){
+      console.log('beforeUpdate');
+      // console.log(this.n);
+      // debugger;
+    },
+    updated(){
+      console.log("updated");
+      this.n=99//会生效
+    },
+    //只要到了下面阶段，访问数据对数据的修改将不会触发更新
+    beforeDestroy() {
+      console.log("beforeDestroy");
+      this.n=99//不会生效
+    },
+    destory(){
+      console.log("destory");
+    }
+    
+  })
+</script>
+</html>

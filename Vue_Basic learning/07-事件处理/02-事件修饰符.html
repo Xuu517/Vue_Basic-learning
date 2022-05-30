@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+  <style>
+    .demo{
+      background-color: skyblue;
+      height:50px;
+    }
+    .box{
+      height: 50px;
+      background-color: pink;
+    }
+    .box2{
+      height: 30px;
+      background-color: skyblue;
+    }
+    .list{
+      width: 200px;
+      height: 300px;
+      background-color: brown;
+      overflow: auto;
+    }
+    li{
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root">
+    <h2>欢饮{{name}}</h2>   
+    <!-- @click.prevent阻止默认事件 -->   
+    <a href="http://www.baidu.com" @click.prevent="show">就不告诉你</a>
+    <!-- 阻止事件冒泡(常用)  :本来事件发生两次，按钮和盒模型各一次，现在只发生一次-->
+    <div class="demo" @click="show1">
+      <button @click.stop="show">我的天</button>
+    </div>
+    <!-- 事件只触发一次  ：以后都会失效-->
+    <button @click.once="show">怎么才能出去</button>
+    <!--使用事件的捕获模式 :一般情况先捕获后冒泡，但冒泡时处理事件，不想在冒泡阶段处理时间（在捕获阶段处理事件）-->
+    <div class="box" @click.capture="show1(1)">
+      div1
+      <div class="box2" @click="show1(2)">div2</div>
+    </div>
+    <!-- self:只有event. target是当前操作的元素时才触发事件; -->
+    <div class="demo" @click.self="show">
+      <button @click="show">好吵</button>
+    </div>
+    <!-- passive:事件的默认行为立即执行，无需等待事件回调执行完中:  -->
+    <div class="list" @wheel.passive="show3"><!--此处也可以用scroll;scroll：到滚动条底部@不会增长，滚动条操控，但wheel会：鼠标滚轮操控-->
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </div>
+  </div>
+
+</body>
+<script>
+Vue.config.productionTip=false;
+const vm=new Vue({
+  el:'#root',
+  data:{
+    name:'橙汁'
+  },
+  methods:{
+    show(e){
+      alert('相去万余里'),
+      console.log(e.target);
+    },
+    show1(q){
+      console.log(q);
+    },
+    show3(){
+        // console.log('@'),
+        for (let i = 0; i <1000000; i++) {
+          console.log('*')//可以发现*数量增长，但是操作未执行，可以用passive
+     }   
+     console.log('henfan');
+     }
+  }
+  })
+
+</script>
+</html>
+
+<!-- Vue中的事件修饰符:
+
+1.prevent:阳止默认事便 (常用) ;
+2.stop:阻止事件冒泡(常用) ;
+3.once:事件只触发-次(常用) ;
+4.capture:使用事件的捕获模式;
+5.self:只有event. target是当前操作的元素时才触发事件;
+6.passive:事件的默认行为立即执行，无需等待事件回调执行完中: -->

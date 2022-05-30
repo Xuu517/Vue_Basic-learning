@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var number=19;
+    let person={
+      name:'张三',    
+      sex:'女',
+      //age书写方法X
+      //X1：
+      // age:18// 可以随意改变值
+      // age:number; 仅限定义赋值有变化
+    }
+      //X2:
+    Object.defineProperty(person,'age',{
+      // value:18,
+      // enumerable:true,
+      // 控制属性是否可以枚举，默认值是false
+      // writable:true,
+      // 控制属性值是否可以修改,默认值是false
+      // configurable:true,
+      //控制属性是否可以被删除
+
+      // 当有人读取person的age属性，get函数（getter）就会被调用，其返回值就是age值
+      get(){
+          return number
+      },
+
+      // 当有人修改person属性时，set函数（setter）就会被调用，返回值为修改的具体指
+      set(value){
+        console.log('有人修改了age，值为',value)
+        number=value//确保修改起作用
+      },
+      
+    })
+
+
+    // 可以显示出属性值，除了age不可遍历
+    // 方法一：console.log(Object.keys(person));
+    // 方法二：
+    // for(let key in person){
+    //   console.log('@',person[key]);//@为分隔符
+    // }
+
+    console.log(person);
+  </script>
+  
+</body>
+</html>
